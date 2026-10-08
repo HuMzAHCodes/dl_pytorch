@@ -1,7 +1,7 @@
 # Progress Tracker
 
 Status of the Deep Learning course plan (see `PROJECT_APPROACH.md` for the full plan).
-Last updated: 2026-10-07.
+Last updated: 2026-10-08.
 
 Legend: done · in progress · not started
 
@@ -57,8 +57,33 @@ loaded into every notebook via `%run`.
 
 ---
 
+## Group 3 — Sequence Modeling  —  COMPLETE (notes + labs + project)
+
+- Notes: 7 Problem/Fix/Why cards (RNN, vanishing gradient over time, LSTM, GRU, deep RNNs,
+  bidirectional RNNs, encoder-decoder) + problem->fix summary table. File: `group3-notes.md`
+- Lab A — "The Vanishing Gradient Over Time (RNN vs LSTM)":
+  accuracy trend (T=80: RNN ~0.74 vs LSTM ~0.85, noisy) + deterministic gradient-through-time
+  (RNN grad decays 1e-4 -> 1e-18; LSTM flat; ratio 1.6e8 vs ~1.1)
+- Lab B — "Bidirectional Context & the Encoder-Decoder Bottleneck":
+  bidirectional 0.756 -> 0.983 on a future-context task; seq2seq copy-reverse collapses
+  with length (exact-seq acc 0.95 at T=5 -> 0.00 at T=20) -> motivates attention
+- Consolidated labs report: `group3_labs_report.md` (both labs + 7 interview questions)
+
+### Group 3 project — "Sensor HAR: Which Recurrent Cell Survives Real Sequences?"  —  COMPLETE
+- Dataset: UCI HAR Smartphones (switched from WISDM — Fordham download dead, no clean mirror).
+  Raw inertial signals, (7352,128,9) train / (2947,128,9) test, 6 activities.
+- Four-way controlled comparison (seed 0, 15 epochs, hidden 64): RNN 0.797, LSTM 0.896,
+  Bi-LSTM 0.904, GRU 0.908. RNN also trained erratically (grad-norm spikes, bouncing acc).
+- Gradient-through-time on real data: recent/early ratio RNN 2062 >> LSTM 14.1 > GRU 3.8 ~ Bi-LSTM 3.6
+  — the ratio predicts the accuracy ranking. Lab A confirmed on real data; Autopsy heatmap rotated to time axis.
+- Colab precaution applied from the start: checkpoint model+history to Drive every epoch, resumable.
+- cuDNN lesson: backprop-into-input needs train() mode (eval() raises "cudnn RNN backward can only be
+  called in training mode"); fine here since HARNet has no dropout/BN.
+- Report: `group3_project_report.md` (full story + 5 interview questions)
+
+---
+
 ## Later in the plan  —  NOT STARTED
-- Group 3 — Sequence Modeling (notes, labs, sensor-based WISDM HAR project)
 - Group 4 — Attention & Transformers (notes, labs, Transformer-from-scratch project)
 - Open-Ended Lab — Responsible-AI audit (fairness, uncertainty, OOD, mitigation, model card)
 - Final Project — Human Action Recognition (HAR), video (UCF101/HMDB51), CNN+LSTM/GRU+attention
@@ -66,9 +91,9 @@ loaded into every notebook via `%run`.
 ---
 
 ## Immediate next step
-**Group 3 — Sequence Modeling.** Start with the notes (RNN, LSTM, GRU, deep/bidirectional RNNs,
-encoder-decoder), then the labs, then the sensor-based WISDM HAR project. This reopens the chain toward
-the HAR final project.
+**Group 4 — Attention & Transformers.** Picks up exactly where Group 3 left off: Lab B's
+context-vector bottleneck (capacity) and the project's gradient-through-time tilt (optimization) both
+motivate attention. Start with the notes, then labs, then the Transformer-from-scratch project.
 
 ---
 

@@ -61,7 +61,12 @@ per-group notes and labs, plus a combined capstone project called Gradient Autop
 
 ## Current status
 
-Groups 1 & 2 (notes + labs + reports) and the Gradient Autopsy project (4 notebooks + 4 reports + full
-docs) are COMPLETE. **Next up: Group 3 — Sequence Modeling** (RNN/LSTM/GRU/bidirectional/encoder-decoder),
-leading to the sensor-based WISDM HAR project, then Group 4 (attention/transformers), the Open-Ended Lab
-(responsible-AI audit), and the HAR video final project. Always re-check `PROGRESS.md` for the live state.
+Groups 1 & 2 (notes + labs + reports), the Gradient Autopsy project, and **Group 3 — Sequence Modeling**
+(notes + Lab A + Lab B + the UCI HAR project) are all COMPLETE. Group 3 switched its project dataset from
+WISDM to UCI HAR Smartphones (WISDM's Fordham download is dead, no clean no-auth mirror). **Next up:
+Group 4 — Attention & Transformers** (notes, labs, Transformer-from-scratch project), then the Open-Ended
+Lab (responsible-AI audit) and the HAR video final project. Always re-check `PROGRESS.md` for the live state.
+
+Group 3 gotcha worth remembering: to backprop into the INPUT through a cuDNN RNN (e.g. gradient-through-time
+measurement), the model must be in `train()` mode — `eval()` raises "cudnn RNN backward can only be called
+in training mode". Fine when the model has no dropout/BN, since train/eval forward outputs are identical.
