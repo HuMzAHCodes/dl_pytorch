@@ -83,17 +83,41 @@ loaded into every notebook via `%run`.
 
 ---
 
+## Group 4 — Attention & Transformers  —  COMPLETE (notes + labs + project)
+
+- Notes: 7 Problem/Fix/Why cards (attention, Q/K/V + scaled dot-product, self-attention, multi-head,
+  positional encoding, Transformer block, masked/encoder-decoder) + summary table. File: `group4-notes.md`
+- Lab A — "Attention from Scratch: the Long-Range Lookup":
+  scaled dot-product attention by hand; recall task across length — attention flat at 1.00 while
+  RNN collapses (T=60: attn 1.00, LSTM 0.90, RNN 0.24); attention weight ~0.97 on the target token.
+- Lab B — "Order Matters: Positional Encoding, Multi-Head Attention & the Transformer Block":
+  order-sensitive endpoints task; ablation ladder no-PE 0.506 -> PE 0.952 -> 4 heads 0.976 ->
+  2 blocks 0.995; heads specialized (head 0 -> first token, head 3 -> last).
+- Consolidated labs report: `group4_labs_report.md` (both labs + 6 interview questions)
+
+### Group 4 project — "Transformer HAR: Attention vs Recurrence on Real Sensor Data"  —  COMPLETE
+- Same UCI HAR data/split as the Group 3 project (apples-to-apples). Built from the Lab A/B
+  from-scratch components: input proj 9->64, CLS token, sinusoidal PE, 2 blocks, 4 heads, ~68k params.
+- Head-to-head: Transformer 0.913 (top), GRU 0.908, Bi-LSTM 0.904, LSTM 0.896, RNN 0.797.
+  Narrow edge — small, short-sequence dataset favors RNNs — but parallel, no recurrence, interpretable.
+- Attention saliency (CLS over 128 timesteps): static postures (sitting/standing) spike on a few
+  discrete timesteps; dynamic (walking) spreads over the periodic stride; laying flat/low.
+- Colab precaution from the start: checkpoint model+history to Drive every epoch, resumable.
+- Note: attention maps are a hint, not a faithful explanation (residuals + head/example averaging).
+- Report: `group4_project_report.md` (full story + 5 interview questions)
+
+---
+
 ## Later in the plan  —  NOT STARTED
-- Group 4 — Attention & Transformers (notes, labs, Transformer-from-scratch project)
 - Open-Ended Lab — Responsible-AI audit (fairness, uncertainty, OOD, mitigation, model card)
 - Final Project — Human Action Recognition (HAR), video (UCF101/HMDB51), CNN+LSTM/GRU+attention
 
 ---
 
 ## Immediate next step
-**Group 4 — Attention & Transformers.** Picks up exactly where Group 3 left off: Lab B's
-context-vector bottleneck (capacity) and the project's gradient-through-time tilt (optimization) both
-motivate attention. Start with the notes, then labs, then the Transformer-from-scratch project.
+**Open-Ended Lab — Responsible-AI audit.** The four-group architecture arc (perceptron -> Transformer)
+is complete. What remains is applying it: a responsible-AI audit (fairness, uncertainty, OOD detection,
+mitigation, model card), then the HAR video final project (CNN features + sequence model + attention).
 
 ---
 
